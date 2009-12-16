@@ -1,0 +1,46 @@
+jvMonitoring
+2009 Jerome Vieilledent
+
+
+Introduction
+============
+
+1. What is the JV Monitoring extension ?
+   -------------------------------------
+   JV Monitoring allows you to "monitor" your application. It checks health of your website by using handlers.
+   
+2. Which handlers are provided by default ?
+   ----------------------------------------
+   JVMonitoring comes with several monitor handlers to check : 
+    * Database (connection, insert, select and delete queries). 
+      Warning ! If no connection can be made to your DB server, 
+      an uncatchable exception can be thrown avoiding the test page to appear.
+    * HTTP Access (from the server, using proxy if configured).
+    * PHP CLI access
+    * Image handling (presence of GD extension and access to ImageMagick binary if activated in image.ini)
+
+    Handlers can be configured in jvmonitoring.ini (please make an override of it). Read the comments in this file.
+    
+3. What will the monitor page display ?
+   ------------------------------------
+   Monitor page (jvmonitoring/monitor) will display results of each test. 
+   OK will be displayed if test passed
+   KO will be displayed if test failed with an error message if available
+   A general status is also provided. 
+   Keyword displayed can be configured in jvmonitoring.ini : GlobalStatusOK or GlobalStatusKO
+
+4. What will happen if at least one of the tests fails ?
+   -----------------------------------------------------
+   GlobalStatusKO keyword configured in jvmonitoring.ini will be displayed at the bottom of the page
+   Additionnaly, a HTTP 500 error will be sent.
+
+   Warning ! If no connection to DB can be made, eZ Publish will throw an uncatchable exception
+   So no keyword will be displayed, but the HTTP 500 error will be sent though
+   
+
+Additional handlers
+===================
+
+It is possible to develop additional handlers to allow you to monitor specific parts of your application if needed.
+To do that, you'll need to create a PHP class implementing IJVMonitoringHandler interface.
+Then you must declare your handler in jvmonitoring.ini. See comments in jvmonitoring.ini for more details
