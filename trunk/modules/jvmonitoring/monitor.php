@@ -32,7 +32,7 @@ ini_set('display_errors','Off');
 ini_set('xdebug.show_exception_trace', 'Off');
 
 include_once("kernel/common/template.php");
-$tpl = templateInit();
+$tpl = eZTemplate::factory();
 $monitoringINI = eZINI::instance('jvmonitoring.ini');
 
 $monitor = new JVMonitoring();
